@@ -158,6 +158,9 @@ if __name__ == '__main__':
         for i, shape in enumerate(shape_list):
             shape_index[shape.name] = i
 
+        text_on_shape(shape_list[shape_index["title"]], "'" + contents + "' ", RGBColor(255, 255, 255), font_size=28)
+        text_on_shape(shape_list[shape_index["title"]], words + " " + chapter + "장 " + clause + "절",
+                      RGBColor(181, 251, 5), font_size=28, clear=False)
         text_on_shape(shape_list[shape_index["new_translation"]], saenew, RGBColor(255, 255, 255))
         text_on_shape(shape_list[shape_index["revision"]], gae, RGBColor(204, 255, 204))
 
