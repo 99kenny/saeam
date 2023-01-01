@@ -64,6 +64,11 @@ if __name__ == '__main__':
     }
     url = "http://www.holybible.or.kr/"
 
+    # 크롤링
+    options = Options()
+    options.add_argument('--blink-settings=imageEnabled=false')
+    driver = webdriver.Chrome(options=options, service=Service(ChromeDriverManager().install()))
+
     for i in range(len(sys.argv)):
         if i == 0:
             continue
@@ -107,13 +112,6 @@ if __name__ == '__main__':
 
         text_on_shape(shape_list[shape_index["title"]], "'" + contents + "' ", RGBColor(255,255,255), font_size=28)
         text_on_shape(shape_list[shape_index["title"]], words + " " + chapter + "장 " + clause + "절", RGBColor(181,251,5), font_size=28, clear=False)
-
-        #크롤링
-        options = Options()
-        options.add_argument('--blink-settings=imageEnabled=false')
-        driver = webdriver.Chrome(options=options, service=Service(ChromeDriverManager().install()))
-
-
 
 
         #개역개정
@@ -165,3 +163,5 @@ if __name__ == '__main__':
         text_on_shape(shape_list[shape_index["revision"]], gae, RGBColor(204, 255, 204))
 
         prs.save(seperated[0] + " " + seperated[1] + " " + seperated[2] + " " + seperated[3] + ".pptx")
+
+    driver.quit()
