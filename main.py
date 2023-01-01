@@ -122,12 +122,14 @@ if __name__ == '__main__':
         search.send_keys(words+chapter+"장")
         submit = driver.find_element(By.CSS_SELECTOR, "body > table:nth-child(3) > tbody > tr > td > table:nth-child(2) > tbody > tr:nth-child(2) > td:nth-child(2) > table > tbody > tr > td > font.tk2 > input[type=submit]:nth-child(2)")
         submit.click()
-        tables = driver.find_elements(By.TAG_NAME, "table")
 
-        index = (int(clause) // TABLE_SIZE) + 1
-        list_index = ((int(clause)-1) % TABLE_SIZE)
+        index = ((int(clause) - 1) // TABLE_SIZE)
+        list_index = ((int(clause) - 1) % TABLE_SIZE)
+        num = index * TABLE_SIZE + 1
+        clause_id = "b_" + "{0:03d}".format(num)
+        ol = driver.find_element(By.ID, clause_id)
 
-        gae = tables[9+index].find_elements(By.TAG_NAME, "li")[list_index].find_element(By.TAG_NAME, "font").text
+        gae = ol.find_elements(By.TAG_NAME, "li")[list_index].find_element(By.TAG_NAME, "font").text
 
         #새번역
         driver.get(url)
@@ -138,12 +140,14 @@ if __name__ == '__main__':
         submit = driver.find_element(By.CSS_SELECTOR,
                                      "body > table:nth-child(3) > tbody > tr > td > table:nth-child(2) > tbody > tr:nth-child(2) > td:nth-child(2) > table > tbody > tr > td > font.tk2 > input[type=submit]:nth-child(2)")
         submit.click()
-        tables = driver.find_elements(By.TAG_NAME, "table")
 
-        index = (int(clause) // TABLE_SIZE) + 1
+        index = ((int(clause) - 1) // TABLE_SIZE)
         list_index = ((int(clause) - 1) % TABLE_SIZE)
+        num = index * TABLE_SIZE + 1
+        clause_id = "b_" + "{0:03d}".format(num)
+        ol = driver.find_element(By.ID, clause_id)
 
-        saenew = tables[9 + index].find_elements(By.TAG_NAME, "li")[list_index].find_element(By.TAG_NAME, "font").text
+        saenew = ol.find_elements(By.TAG_NAME, "li")[list_index].find_element(By.TAG_NAME, "font").text
 
         text_on_shape(shape_list[shape_index["new_translation"]], saenew, RGBColor(255, 255, 255))
         text_on_shape(shape_list[shape_index["revision"]], gae, RGBColor(204, 255, 204))
